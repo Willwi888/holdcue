@@ -1,0 +1,39 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "HoldCue",
+      "hasCanvas": true,
+      "bodyTextLen": 136,
+      "bodyTextHash": "0837d0325c1459e1be3f7775a04c0ec1419f960f05cbb699c7031d2bad0b08f0",
+      "bodyTextPrefix": "HOLD CUE 歌詞對時 開始製作 LYRIC FILM STUDIO HOLD CUE 按住空白鍵，對出每一句。完成的成片懸",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/space-home.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "HoldCue",
+      "hasCanvas": true,
+      "bodyTextLen": 131,
+      "bodyTextHash": "69136dbd8165a62e4409ada18298ab9fde6753a086bad830827d3ed71cf2ebb9",
+      "bodyTextPrefix": "HOLD CUE 開始製作 LYRIC FILM STUDIO HOLD CUE 按住空白鍵，對出每一句。完成的成片懸在星塵裡，",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/space-home-mobile.png"
+    }
+  },
+  "brandWarnings": [
+    "BRAND WARNING: this looks like a game/canvas app but src/lib/og/site.json is missing \"type\": \"x:game\". X uses og:type=x:game to present the unfurl as a game card — set it in /workspace/src/lib/og/site.json per /workspace/.grok/skills/og/SKILL.md. Do not invent x:type or overload twitter:card as the game signal.",
+    "BRAND WARNING: this looks like a game/canvas app but /workspace/public/x-banner.jpg is missing. Games need a 50:11 X feed card (1200×264 JPEG) at public/x-banner.jpg — open /workspace/.grok/skills/og/SKILL.md and finish the brand-asset pass."
+  ],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/space-home.json"
+}

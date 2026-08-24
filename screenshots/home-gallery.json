@@ -1,0 +1,36 @@
+{
+  "url": "http://127.0.0.1:8080/",
+  "viewports": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "status": 200,
+      "title": "HoldCue",
+      "hasCanvas": false,
+      "bodyTextLen": 158,
+      "bodyTextHash": "cd93cd8fb5f1266fae444ad140f94e547469e9e17ea8827b2cbb65df266b0482",
+      "bodyTextPrefix": "HoldCue 歌詞對時 開始製作 LYRIC FILM STUDIO HoldCue 對標 Willwi Archive。選一",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/home-gallery.png"
+    },
+    "mobile": {
+      "width": 390,
+      "height": 844,
+      "status": 200,
+      "title": "HoldCue",
+      "hasCanvas": false,
+      "bodyTextLen": 153,
+      "bodyTextHash": "e6e38213acf5796f12ca7b1f1cb254f9044c98b70911c381a12717288a6711d5",
+      "bodyTextPrefix": "HoldCue 開始製作 LYRIC FILM STUDIO HoldCue 對標 Willwi Archive。選一首歌，按住",
+      "horizontalOverflow": false,
+      "consoleErrors": [],
+      "pageErrors": [],
+      "screenshot": "/workspace/screenshots/home-gallery-mobile.png"
+    }
+  },
+  "brandWarnings": [],
+  "authWarnings": [],
+  "verdictFile": "/workspace/screenshots/home-gallery.json"
+}
