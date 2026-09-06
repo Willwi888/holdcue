@@ -34,6 +34,14 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  body:has(.classic-skin) {
+    background: #fff;
+  }
+
+  body:has(.classic-skin) canvas.pointer-events-none {
+    display: none;
+  }
+
   html,
   body,
   #app {

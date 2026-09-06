@@ -80,6 +80,7 @@ export const issueDeskPatron = createServerFn({ method: "POST" })
   .validator(
     RegisterInput.extend({
       token: z.string().min(8).max(80),
+      customCode: z.string().trim().max(20).optional(),
     }),
   )
   .handler(async ({ data }) => {
@@ -94,6 +95,7 @@ export const issueDeskPatron = createServerFn({ method: "POST" })
       plan: data.plan,
       deliver: data.deliver ?? "line",
       openSession: false,
+      customCode: data.customCode,
     });
     return { code: result.code, patron: result.patron };
   });

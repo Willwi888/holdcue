@@ -534,6 +534,7 @@ function TicketDesk({
   const [email, setEmail] = useState("");
   const [lineId, setLineId] = useState("");
   const [plan, setPlan] = useState<PlanId>("listen");
+  const [customCode, setCustomCode] = useState("");
   const [issued, setIssued] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -576,6 +577,15 @@ function TicketDesk({
               ))}
             </select>
           </div>
+          <div className="sm:col-span-2">
+            <Label>自訂密碼（選填）</Label>
+            <Input
+              value={customCode}
+              placeholder="留空就由系統開。8 碼，例如 WILL2026"
+              autoComplete="off"
+              onChange={(e) => setCustomCode(e.target.value)}
+            />
+          </div>
         </div>
         <Button
           className="mt-4"
@@ -584,13 +594,22 @@ function TicketDesk({
             setBusy(true);
             setIssued(null);
             void issueDeskPatron({
-              data: { token, name, email, lineId, plan, deliver: "line" },
+              data: {
+                token,
+                name,
+                email,
+                lineId,
+                plan,
+                deliver: "line",
+                customCode: customCode.trim() || undefined,
+              },
             })
               .then(async (result) => {
                 setIssued(result.code);
                 setName("");
                 setEmail("");
                 setLineId("");
+                setCustomCode("");
                 await refresh();
                 toast.success("票已開好，請立刻複製寄出");
               })

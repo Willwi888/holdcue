@@ -1,52 +1,30 @@
-# WILLWI 情緒捷運線
+# HoldCue
 
-本線所有列車均不開往快樂。
+Willwi 的手工歌詞對時工作室。
 
-這不是 Spotify，也不是 Apple Music。  
-聽眾用一次性密碼進站。每一首歌是一站。每一站是一場情緒儀式。
+這不是情緒捷運線。捷運線仍在獨立專案：
+[Willwi888/willwi](https://github.com/Willwi888/willwi)
 
-長期放在 Git + Vercel 上跑。程式進 Git；口令與聽眾資料不進 Git。
+HoldCue 只做這件事：
 
-## 什麼放哪裡
+1. 輸入一次性密碼
+2. 從 [Willwi Archive](https://willwi-music-db-j3h8.vercel.app/database) 選歌
+3. 按住空白鍵對時，放開跳下一句
+4. 輸出歌詞影片：專輯封面放大當底、固定躁點、前方 1:1 封面與歌曲資料
 
-| 東西 | 放哪 |
-| --- | --- |
-| 網站程式、預設識別片 | Git |
-| 司機室口令 `DESK_PASSPHRASE` | Vercel 環境變數（不要 commit） |
-| 資料庫 `DATABASE_URL` | Vercel + Neon（平台會注入） |
-| 各站文字、音源網址、開站/關站 | 司機室 → 寫進資料庫 |
-| 進站 / 車門 / 出站 / 底圖新片子 | 雲端 https，網址貼司機室 |
-| 聽眾名字、Email、一次性密碼 | 資料庫。密碼只顯示一次 |
+## 流程
 
-預設片子在 `public/metro/video/`，第一次上線就能播。之後要換片，不要再把大檔推進 Git。
+聽眾用司機室開出的一次性密碼進站。選歌後不可換歌（對時中可 Delete / reset）。完成後可看成品並下載 MP4。
 
-## Vercel
+歌曲、歌詞、錄音權利仍屬原創作者。下載不成授權。
 
-1. Git 連到 Vercel 專案（例如 emotion-metro-vercel）。
-2. 接 Neon。`DATABASE_URL` 由平台注入，建置時會跑 migrations。
-3. 環境變數加一項：
-   - `DESK_PASSPHRASE`：司機室主口令，請設長一點、不要用預設的 WILLWI。
-4. 部署。司機室在 `/desk`。
+## 部署
 
-本地預覽沒設口令時，暫時仍可用 `WILLWI`。上線一定要改。
+GitHub：[Willwi888/holdcue](https://github.com/Willwi888/holdcue)
 
-## 司機室 `/desk`
+Vercel 專案請另開，不要接在 `emotion-metro-vercel` 上。
 
-- **文字**：深夜模式、走馬燈。聽眾只看到句子。
-- **車站**：加站、開放、音源、封面、停駛。沒開放的站，月台上不會出現。
-- **識別片**：進站 in、車門 playsong、出站 out、網站底圖。貼 https。留空用預設。
-- **今晚的票**：LINE / 轉帳後在這裡開一次性密碼，複製寄出。可作廢。
-- **口令**：可另設一組資料庫口令。Vercel 那組永遠能進來，避免自己把自己鎖在外面。
+環境變數：
 
-聽眾頁面不會看到資料庫編號、原始音源網址、後台欄位。
-
-## 乘車流程
-
-1. 首頁輸入一次性密碼。
-2. 先看進站片，再看車門 / playsong，然後進月台。
-3. 點開放中的車站，走一次情緒儀式。歌只播一次。
-4. 出站後這組密碼作廢。
-
-## 注意
-
-下載完成的歌詞影片，不代表著作權轉移。歌曲、歌詞、錄音仍屬原創者。
+- `DATABASE_URL`（Neon）
+- `DESK_PASSPHRASE`（司機室口令，不進 Git）

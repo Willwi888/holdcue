@@ -133,10 +133,8 @@ function makeNoiseTile(size = 160): HTMLCanvasElement {
   return c;
 }
 
-function grainStrength(time: number, duration: number, pad: number) {
-  if (time < pad) return 0.28;
-  if (time > duration - pad) return 0.28;
-  return 0.12;
+function grainStrength(_time: number, _duration: number, _pad: number) {
+  return 0.2;
 }
 
 function drawLoopingGrain(
@@ -271,18 +269,21 @@ function drawBg(
   portrait: HTMLImageElement | null,
   cover: HTMLImageElement | null,
 ) {
-  ctx.fillStyle = INK;
+  ctx.fillStyle = "#1a1a1a";
   ctx.fillRect(0, 0, w, h);
-  const img = portrait ?? cover;
+  const img = cover ?? portrait;
   if (!img) return;
   ctx.save();
-  ctx.filter = "saturate(0.85) contrast(1.05)";
-  drawCover(ctx, img, 0, 0, w, h);
+  ctx.filter = "grayscale(0.92) contrast(1.08) brightness(0.72)";
+  const scale = 1.18;
+  const bw = w * scale;
+  const bh = h * scale;
+  drawCover(ctx, img, (w - bw) / 2, (h - bh) / 2, bw, bh);
   ctx.restore();
-  const g = ctx.createLinearGradient(0, 0, 0, h);
-  g.addColorStop(0, "rgba(8,8,9,0.18)");
-  g.addColorStop(0.45, "rgba(8,8,9,0.28)");
-  g.addColorStop(1, "rgba(8,8,9,0.62)");
+  const g = ctx.createLinearGradient(0, 0, w, 0);
+  g.addColorStop(0, "rgba(12,12,12,0.18)");
+  g.addColorStop(0.55, "rgba(12,12,12,0.28)");
+  g.addColorStop(1, "rgba(8,8,8,0.55)");
   ctx.fillStyle = g;
   ctx.fillRect(0, 0, w, h);
 }
@@ -368,20 +369,21 @@ function drawMetaBlock(
 ) {
   ctx.textAlign = "left";
   ctx.textBaseline = "top";
-  const rows: string[] = [];
-  if (meta.title) rows.push(meta.title);
-  if (meta.artist) rows.push(meta.artist);
-  if (meta.isrc) rows.push(`ISRC  ${meta.isrc}`);
-  if (meta.releaseDate) rows.push(formatRelease(meta.releaseDate));
-  if (meta.label) rows.push(meta.label);
-  if (rows.length === 0) return;
+  const rows = [
+    meta.title,
+    meta.artist ? `Artist:${meta.artist}` : "",
+    `ISRC : ${meta.isrc || ""}`,
+    `UPC: ${meta.upc || ""}`,
+    `Release date: ${meta.releaseDate ? formatRelease(meta.releaseDate) : ""}`,
+    `Record Label: ${meta.label || "Willwi Music"}`,
+  ].filter((row, i) => i === 0 || Boolean(row));
   rows.forEach((row, i) => {
-    ctx.fillStyle = i === 0 ? PAPER : "rgba(245,242,238,0.72)";
+    ctx.fillStyle = i === 0 ? "#f3f3f3" : "rgba(235,235,235,0.88)";
     ctx.font =
       i === 0
-        ? `600 ${13 * s}px "Noto Sans TC", sans-serif`
-        : `500 ${11 * s}px "Noto Sans TC", sans-serif`;
-    ctx.fillText(row, x, y + i * 18 * s);
+        ? `600 ${15 * s}px "Noto Sans TC", sans-serif`
+        : `400 ${12 * s}px "Noto Sans TC", sans-serif`;
+    ctx.fillText(row, x, y + i * 20 * s);
   });
 }
 
@@ -458,9 +460,9 @@ function drawCinematic(
   const { meta, flags, cover, portrait, time } = state;
   drawBg(ctx, w, h, portrait, cover);
 
-  const cardSize = 188 * s;
-  const cardX = w - cardSize - 48 * s;
-  const cardY = 42 * s;
+  const cardSize = 248 * s;
+  const cardX = w - cardSize - 56 * s;
+  const cardY = h * 0.16;
   const album = meta.album || meta.title;
   const words = album.trim().split(/\s+/).filter(Boolean).length;
 

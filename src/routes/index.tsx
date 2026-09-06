@@ -2,21 +2,19 @@ import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AudioHost } from "@/components/audio-host";
 import { MetroGate } from "@/components/metro/gate";
-import { MetroIntro } from "@/components/metro/intro";
-import { MetroLine } from "@/components/metro/line";
 import { BrandMark, StepNav } from "@/components/step-nav";
 import { Prelude } from "@/components/prelude";
+import { ClassicCue } from "@/components/studio/classic-cue";
+import { ClassicPicker } from "@/components/studio/classic-picker";
 import { ExportStudio } from "@/components/studio/export-studio";
 import { SetupForm } from "@/components/studio/setup-form";
 import { StyleStudio } from "@/components/studio/style-studio";
-import { TimingStudio } from "@/components/studio/timing-studio";
 import {
   DEMO_AUDIO,
   DEMO_COVER,
   DEMO_PORTRAIT,
 } from "@/lib/demo-data";
 import { loadFile } from "@/lib/files";
-import { INTRO_SEEN_KEY } from "@/lib/metro";
 import { readPass } from "@/lib/pass-session";
 import { useProject } from "@/lib/store";
 
@@ -55,20 +53,7 @@ function Home() {
       }
       if (s.lyricsText && s.lines.length === 0) s.setLyricsText(s.lyricsText);
       const pass = readPass();
-      if (
-        !pass?.canTime &&
-        (s.step === "setup" ||
-          s.step === "cue" ||
-          s.step === "style" ||
-          s.step === "export" ||
-          s.step === "prelude")
-      ) {
-        s.setStep("home");
-      }
-      if (pass?.canTime && sessionStorage.getItem("holdcue-open-studio") === "1") {
-        sessionStorage.removeItem("holdcue-open-studio");
-        s.setStep("prelude");
-      }
+      if (!pass && s.step !== "home") s.setStep("home");
       s.markHydrated();
       setReady(true);
     })();
@@ -85,7 +70,7 @@ function Home() {
   if (!ready || !hydrated) {
     return (
       <div className="grid min-h-dvh place-items-center bg-black text-amber-200/70">
-        <p className="font-display text-sm tracking-[0.28em]">情緒捷運線</p>
+        <p className="font-display text-sm tracking-[0.28em]">HoldCue</p>
       </div>
     );
   }
@@ -95,7 +80,7 @@ function Home() {
   return (
     <AudioHost>
       {step === "cue" ? (
-        <TimingStudio />
+        <ClassicCue />
       ) : studio ? (
         <div className="min-h-dvh text-fg">
           <header className="sticky top-0 z-20 flex min-w-0 items-center justify-between gap-2 border-b border-border bg-bg/70 px-3 py-3 backdrop-blur-md sm:gap-3 sm:px-6">
@@ -120,21 +105,13 @@ function Home() {
 
 function MetroHome() {
   const [pass, setPass] = useState(() => readPass());
-  const [intro, setIntro] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return sessionStorage.getItem(INTRO_SEEN_KEY) === "1";
-  });
 
   useEffect(() => {
-    const sync = () => {
-      setPass(readPass());
-      setIntro(sessionStorage.getItem(INTRO_SEEN_KEY) === "1");
-    };
+    const sync = () => setPass(readPass());
     window.addEventListener("metro-pass", sync);
     return () => window.removeEventListener("metro-pass", sync);
   }, []);
 
-  if (!pass) return <MetroGate />;
-  if (!intro) return <MetroIntro onEnter={() => setIntro(true)} />;
-  return <MetroLine />;
+  if (!pass && !import.meta.env.DEV) return <MetroGate />;
+  return <ClassicPicker />;
 }

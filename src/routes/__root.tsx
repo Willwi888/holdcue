@@ -11,7 +11,7 @@ import { SpaceField } from "@/components/space-field";
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "WILLWI 情緒捷運線";
+const APP_NAME = "HoldCue";
 
 export const Route = createRootRoute({
   head: () => ({
@@ -21,7 +21,7 @@ export const Route = createRootRoute({
       { title: APP_NAME },
       {
         name: "description",
-        content: "本線所有列車均不開往快樂。WILLWI 情緒捷運線。",
+        content: "從音樂庫選歌，按住空白鍵對時，輸出帶專輯封面與躁點的歌詞影片。",
       },
       { name: "theme-color", content: "#05070c" },
     ],

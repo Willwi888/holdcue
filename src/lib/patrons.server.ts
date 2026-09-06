@@ -59,6 +59,14 @@ function makeCode(): string {
   return `${raw.slice(0, 4)}-${raw.slice(4)}`;
 }
 
+function normalizeIssuedCode(raw: string): string {
+  const compact = raw.trim().toUpperCase().replace(/[^A-Z0-9]/g, "");
+  if (compact.length !== 8) {
+    throw new Error("自訂密碼請用 8 碼英文或數字，例如 WILL2026");
+  }
+  return `${compact.slice(0, 4)}-${compact.slice(4)}`;
+}
+
 function makeToken(): string {
   return randomBytes(24).toString("hex");
 }
@@ -81,12 +89,19 @@ export async function insertPatron(input: {
   plan: PlanId;
   deliver: "app" | "email" | "line";
   openSession?: boolean;
+  customCode?: string;
 }): Promise<{ code: string; token: string | null; patron: PatronPublic }> {
   const plan = PLANS[input.plan];
   if (!plan) throw new Error("未知方案");
-  const code = makeCode();
+  const code = input.customCode?.trim()
+    ? normalizeIssuedCode(input.customCode)
+    : makeCode();
   const id = `pt-${Date.now().toString(36)}-${randomBytes(3).toString("hex")}`;
   const sql = await getSql();
+  const taken = await sql<{ id: string }>`
+    select id from patrons where code_hash = ${sha(code)} limit 1
+  `;
+  if (taken[0]) throw new Error("這組密碼已經有人用了，換一組。");
   await sql`
     insert into patrons (
       id, name, email, line_id, city, plan, amount_twd, deliver,
