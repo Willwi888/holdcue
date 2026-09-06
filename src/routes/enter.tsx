@@ -2,7 +2,6 @@ import { useState, type FormEvent } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { BrandMark } from "@/components/step-nav";
-import { MetroBackdrop } from "@/components/metro/backdrop";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { redeemPatronCode } from "@/lib/patrons";
@@ -30,11 +29,8 @@ function EnterPage() {
   };
 
   return (
-    <div className="metro-skin min-h-dvh text-fg">
-      <MetroBackdrop />
-      <div className="metro-dim" />
-      <div className="metro-platform" />
-      <header className="relative z-20 flex items-center justify-between px-4 py-3 sm:px-6">
+    <div className="classic-skin min-h-dvh bg-[#0c0c0d] text-[#ececec]">
+      <header className="flex items-center justify-between px-4 py-3 sm:px-6">
         <BrandMark />
         <Link to="/support" search={{ next: "" }} className="text-xs tracking-wide text-white/60 hover:text-white">
           還沒支持

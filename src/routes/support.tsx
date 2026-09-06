@@ -2,7 +2,6 @@ import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { BrandMark } from "@/components/step-nav";
-import { MetroBackdrop } from "@/components/metro/backdrop";
 import { Button } from "@/components/ui/button";
 import { Input, Label } from "@/components/ui/input";
 import { readMetroCopy } from "@/lib/metro-cms";
@@ -58,18 +57,15 @@ function SupportPage() {
   };
 
   return (
-    <div className="metro-skin text-white">
-      <MetroBackdrop />
-      <div className="metro-dim" />
-      <div className="metro-platform" />
-      <header className="relative z-20 flex items-center justify-between px-4 py-3 sm:px-6">
+    <div className="classic-skin min-h-dvh bg-[#0c0c0d] text-[#ececec]">
+      <header className="flex items-center justify-between px-4 py-3 sm:px-6">
         <BrandMark />
         <Link to="/enter" className="text-xs tracking-wide text-white/55 hover:text-white">
-          我有今晚的票
+          我有一次性密碼
         </Link>
       </header>
 
-      <div className="relative z-10 mx-auto w-full max-w-lg px-6 py-12 sm:py-16">
+      <div className="mx-auto w-full max-w-lg px-6 py-12 sm:py-16">
         {issued ? (
           <IssuedCard
             issued={issued}
@@ -82,15 +78,15 @@ function SupportPage() {
           />
         ) : (
           <>
-            <p className="text-[11px] tracking-[0.28em] text-amber-200/90">
-              {copy.night_kicker || "深夜情緒模式"}
+            <p className="text-[11px] tracking-[0.28em] text-[#e85a12]">
+              手工歌詞
             </p>
             <h1 className="mt-5 font-display text-[2.1rem] font-extrabold leading-tight tracking-wide">
-              {copy.night_lead || "這一站比較暗。"}
+              先支持，再對時
             </h1>
-            <p className="night-letter mt-6 whitespace-pre-wrap text-[15px] leading-8 text-white/75">
+            <p className="mt-6 whitespace-pre-wrap text-[15px] leading-8 text-white/70">
               {copy.night_body ||
-                "你可以只是坐著。\n也可以把名字留下來，讓我們知道你來過。\n\n不用對時也沒關係。\n留下來，不是為了完成什麼。\n是因為這首歌還想記得你。"}
+                "留下名字與 Email。\n付款後會拿到一組一次性密碼。\n這不是 Spotify，也不是著作權轉移。"}
             </p>
 
             <form onSubmit={(e) => void onSubmit(e)} className="mt-10 space-y-8">

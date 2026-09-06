@@ -1,30 +1,21 @@
-# HoldCue
+# 手工歌詞 HoldCue
 
-Willwi 的手工歌詞對時工作室。
+獨立專案。不是情緒捷運線，不共用那個網站、不共用那組資料庫。
 
-這不是情緒捷運線。捷運線仍在獨立專案：
-[Willwi888/willwi](https://github.com/Willwi888/willwi)
+- 捷運線：[Willwi888/willwi](https://github.com/Willwi888/willwi)
+- 本專案：[Willwi888/holdcue](https://github.com/Willwi888/holdcue)
 
-HoldCue 只做這件事：
+只做手工歌詞：公開看成片 → NT$100／320／2,800 支持 → 一次性密碼 → Archive 選歌 → 空白鍵對時 → 封面＋躁點成片。
 
-1. 輸入一次性密碼
-2. 從 [Willwi Archive](https://willwi-music-db-j3h8.vercel.app/database) 選歌
-3. 按住空白鍵對時，放開跳下一句
-4. 輸出歌詞影片：專輯封面放大當底、固定躁點、前方 1:1 封面與歌曲資料
+## Vercel
 
-## 流程
+專案名稱用 `holdcue`，Git 只接這個 repo。Root Directory 留空。
 
-聽眾用司機室開出的一次性密碼進站。選歌後不可換歌（對時中可 Delete / reset）。完成後可看成品並下載 MP4。
+自己開一組 Neon，不要貼捷運線的 `DATABASE_URL`。
 
-歌曲、歌詞、錄音權利仍屬原創作者。下載不成授權。
+環境變數（只加在 holdcue）：
 
-## 部署
+- `DATABASE_URL`：HoldCue 專用
+- `DESK_PASSPHRASE`：司機室口令，不要跟捷運線同一組
 
-GitHub：[Willwi888/holdcue](https://github.com/Willwi888/holdcue)
-
-Vercel 專案請另開，不要接在 `emotion-metro-vercel` 上。
-
-環境變數：
-
-- `DATABASE_URL`（Neon）
-- `DESK_PASSPHRASE`（司機室口令，不進 Git）
+驗收：[https://holdcue.vercel.app/](https://holdcue.vercel.app/)
