@@ -191,8 +191,7 @@ export function ExportStudio() {
           videoMime: encoded.blob.type || "video/mp4",
         },
       });
-      toast.success("已掛上最後一位乘客的成片");
-      s.setStep("home");
+      toast.success("成片已下載。這首歌就停在這裡。");
     } catch (err) {
       toast.error(err instanceof Error ? err.message : "發布失敗");
     } finally {

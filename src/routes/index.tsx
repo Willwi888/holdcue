@@ -105,6 +105,9 @@ function Home() {
 
 function MetroHome() {
   const [pass, setPass] = useState(() => readPass());
+  const audioUrl = useProject((s) => s.audioUrl);
+  const title = useProject((s) => s.title);
+  const setStep = useProject((s) => s.setStep);
 
   useEffect(() => {
     const sync = () => setPass(readPass());
@@ -112,6 +115,11 @@ function MetroHome() {
     return () => window.removeEventListener("metro-pass", sync);
   }, []);
 
+  useEffect(() => {
+    if (pass && audioUrl && title) setStep("cue");
+  }, [pass, audioUrl, title, setStep]);
+
   if (!pass) return <HoldCueHome />;
+  if (audioUrl && title) return null;
   return <ClassicPicker />;
 }

@@ -263,9 +263,9 @@ export function ClassicCue() {
             <button
               type="button"
               className="mt-6 bg-[#e85a12] px-5 py-2.5 text-sm font-semibold text-white"
-              onClick={() => setStep("style")}
+              onClick={() => setStep("export")}
             >
-              看成品
+              輸出成片
             </button>
           </div>
         )}
@@ -273,8 +273,8 @@ export function ClassicCue() {
 
       <div className="fixed inset-x-0 bottom-0 border-t border-[#eee] bg-white/95 px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div className="mx-auto flex max-w-2xl items-center gap-3 text-sm">
-          <button type="button" className="text-[#888]" onClick={() => setStep("home")}>
-            換一首
+          <button type="button" className="text-[#888]" onClick={reset}>
+            重新對
           </button>
           <button type="button" className="text-[#888]" onClick={undoLastCue}>
             上一句
