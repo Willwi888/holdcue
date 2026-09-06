@@ -91,25 +91,34 @@ function DeskPage() {
 
   if (!token) {
     return (
-      <div className="metro-skin min-h-dvh">
-        <MetroBackdrop />
-        <div className="metro-dim" />
+      <div className="classic-skin min-h-dvh bg-white text-[#333]">
         <form
-          className="relative z-10 mx-auto flex min-h-dvh max-w-sm flex-col justify-center px-6"
+          className="mx-auto flex min-h-dvh max-w-sm flex-col justify-center px-6"
           onSubmit={(e) => void enter(e)}
         >
-          <p className="text-[11px] tracking-[0.28em] text-amber-200">司機室</p>
-          <Input
-            className="mt-8"
+          <p className="text-[11px] font-semibold tracking-[0.28em] text-[#e85a12]">
+            HOLDCUE · 管理員
+          </p>
+          <h1 className="mt-3 text-2xl font-medium text-[#222]">司機室</h1>
+          <input
+            className="mt-8 border border-[#ddd] px-3 py-3 outline-none focus:border-[#e85a12]"
             value={phrase}
             onChange={(e) => setPhrase(e.target.value)}
-            placeholder="司機室口令"
+            placeholder="管理員口令"
             type="password"
             autoComplete="off"
           />
-          <Button className="mt-4 w-full" size="lg" disabled={busy} type="submit">
-            進入司機室
-          </Button>
+          <button
+            className="mt-4 w-full bg-[#e85a12] py-3 text-sm font-semibold text-white disabled:opacity-40"
+            disabled={busy}
+            type="submit"
+          >
+            {busy ? "核對中…" : "進入"}
+          </button>
+          <p className="mt-6 text-xs leading-6 text-[#888]">
+            口令是 Vercel 的 DESK_PASSPHRASE。
+            若還沒設定，先試 WILLWI。
+          </p>
         </form>
       </div>
     );
