@@ -137,20 +137,26 @@ export function ClassicCue() {
   return (
     <div className="classic-skin min-h-dvh bg-white text-[#4a4a4a]">
       <div className="mx-auto max-w-2xl px-5 pb-28 pt-10 sm:pt-16">
-        <p className="text-center text-[13px] leading-7 sm:text-[15px]">
-          <span className="font-bold tracking-wide text-[#e85a12]">HOLD YOUR SPACEBAR DOWN</span>
+        <p className="text-center text-[15px] leading-8 text-[#444]">
+          <span className="font-bold tracking-wide text-[#e85a12]">按一下空白鍵</span>
           <br />
-          when you hear the beginning of a line
+          開始播放
         </p>
-        <p className="mt-4 text-center text-[13px] leading-7 sm:text-[15px]">
-          <span className="font-bold tracking-wide text-[#e85a12]">RELEASE YOUR SPACEBAR</span>
+        <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
+          <span className="font-bold tracking-wide text-[#e85a12]">按住空白鍵</span>
           <br />
-          when the lyric is finished
+          聽到這一句開始的時候按住
         </p>
-        <p className="mt-4 text-center text-[13px] leading-7 sm:text-[15px]">
-          <span className="font-bold tracking-wide text-[#e85a12]">DELETE</span> if you mess up, or{" "}
+        <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
+          <span className="font-bold tracking-wide text-[#e85a12]">放開</span>
+          <br />
+          這一句唱完就放開，跳下一句
+        </p>
+        <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
+          <span className="font-bold tracking-wide text-[#e85a12]">倒退鍵</span> 刪最後一句
+          <br />
           <button type="button" className="font-semibold text-[#1d6fd8] underline" onClick={reset}>
-            click here to reset
+            全部重來
           </button>
         </p>
 

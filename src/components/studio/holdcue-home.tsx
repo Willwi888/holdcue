@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { MetroGate } from "@/components/metro/gate";
+import { toast } from "sonner";
 import {
   listArchiveLyricWorks,
   type ArchiveLyricWork,
 } from "@/lib/catalog";
-import { PLAN_COPY } from "@/lib/patrons";
+import { PLAN_COPY, redeemPatronCode } from "@/lib/patrons";
+import { savePass } from "@/lib/pass-session";
 
 export function HoldCueHome() {
   const [gate, setGate] = useState(false);
@@ -17,7 +18,7 @@ export function HoldCueHome() {
       .catch(() => setWorks([]));
   }, []);
 
-  if (gate) return <MetroGate />;
+  if (gate) return <ClassicGate onBack={() => setGate(false)} />;
 
   return (
     <div className="classic-skin min-h-dvh bg-[#0c0c0d] text-[#ececec]">
@@ -102,6 +103,59 @@ export function HoldCueHome() {
           </div>
         </section>
       </main>
+    </div>
+  );
+}
+
+function ClassicGate({ onBack }: { onBack: () => void }) {
+  const [code, setCode] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const onSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setBusy(true);
+    try {
+      const result = await redeemPatronCode({ data: { code } });
+      savePass({ token: result.token, ...result.patron });
+      window.dispatchEvent(new Event("metro-pass"));
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : "密碼無效");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <div className="classic-skin min-h-dvh bg-white text-[#3d3d3d]">
+      <div className="mx-auto max-w-md px-6 py-16">
+        <p className="text-[11px] font-semibold tracking-[0.22em] text-[#e85a12]">
+          HOLDCUE
+        </p>
+        <h1 className="mt-3 text-2xl font-medium text-[#222]">一次性密碼</h1>
+        <p className="mt-3 text-sm leading-7 text-[#666]">
+          進站後從資料庫選歌。按住空白鍵對時，放開跳下一句。
+        </p>
+        <form onSubmit={(e) => void onSubmit(e)} className="mt-10 space-y-4">
+          <input
+            value={code}
+            onChange={(e) => setCode(e.target.value.toUpperCase())}
+            autoComplete="off"
+            spellCheck={false}
+            placeholder="今晚的票"
+            className="w-full border border-[#ddd] px-3 py-3 tracking-[0.2em] outline-none focus:border-[#e85a12]"
+          />
+          <button
+            type="submit"
+            disabled={busy || code.trim().length < 4}
+            className="w-full bg-[#e85a12] py-3 text-sm font-semibold text-white disabled:opacity-40"
+          >
+            {busy ? "核對中…" : "進入選歌"}
+          </button>
+        </form>
+        <button type="button" className="mt-6 text-sm text-[#888]" onClick={onBack}>
+          返回
+        </button>
+      </div>
     </div>
   );
 }
