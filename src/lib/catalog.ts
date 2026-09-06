@@ -186,3 +186,44 @@ export function syncToLines(sync: CatalogSyncCue[]): LyricLine[] {
 export function songPageUrl(id: string): string {
   return `${ARCHIVE_SITE}/song/${encodeURIComponent(id)}`;
 }
+
+export type ArchiveLyricWork = {
+  id: string;
+  songId: string;
+  title: string;
+  album: string;
+  coverUrl: string | null;
+  nickname: string;
+  createdAt: string;
+};
+
+type RawSession = {
+  id: string;
+  song_id: string | null;
+  user_nickname: string | null;
+  video_url: string | null;
+  is_published: boolean | null;
+  created_at: string;
+};
+
+export async function listArchiveLyricWorks(): Promise<ArchiveLyricWork[]> {
+  const sessions = await archiveGet<RawSession[]>(
+    "/lyric_sessions?select=id,song_id,user_nickname,video_url,is_published,created_at&order=created_at.desc&limit=24",
+  );
+  const songs = await listCatalogSongs();
+  const byId = new Map(songs.map((s) => [s.id, s]));
+  return sessions
+    .filter((row) => row.song_id)
+    .map((row) => {
+      const song = byId.get(row.song_id!);
+      return {
+        id: row.id,
+        songId: row.song_id!,
+        title: song?.title || "未命名",
+        album: song?.albumName || "",
+        coverUrl: song?.coverUrl || null,
+        nickname: row.user_nickname?.trim() || "聽眾",
+        createdAt: row.created_at,
+      };
+    });
+}

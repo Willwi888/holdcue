@@ -1,11 +1,21 @@
+import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Showcase } from "@/components/showcase";
 import { MetroGate } from "@/components/metro/gate";
+import {
+  listArchiveLyricWorks,
+  type ArchiveLyricWork,
+} from "@/lib/catalog";
 import { PLAN_COPY } from "@/lib/patrons";
-import { useState } from "react";
 
 export function HoldCueHome() {
   const [gate, setGate] = useState(false);
+  const [works, setWorks] = useState<ArchiveLyricWork[] | null>(null);
+
+  useEffect(() => {
+    void listArchiveLyricWorks()
+      .then(setWorks)
+      .catch(() => setWorks([]));
+  }, []);
 
   if (gate) return <MetroGate />;
 
@@ -19,9 +29,6 @@ export function HoldCueHome() {
           <a href="https://willwi-music-db-j3h8.vercel.app/database" className="hover:text-white">
             資料庫
           </a>
-          <a href="https://emotion-metro-vercel.vercel.app/" className="hover:text-white">
-            情緒捷運站
-          </a>
           <button type="button" className="text-[#e85a12]" onClick={() => setGate(true)}>
             我有密碼
           </button>
@@ -34,20 +41,40 @@ export function HoldCueHome() {
             手工歌詞
           </h1>
           <p className="mt-4 text-sm leading-7 text-[#b8b8b8]">
-            這裡先看別人留下的成片。
-            若要自己對詞，先支持一檔，再拿一次性密碼進工作室。
-            這不是 Spotify，也不是授權買賣。
+            歌、封面、音源都來自 Willwi Archive。
+            對時寫進同一份資料的 lyric_sessions。
+            先看成片，再支持後進工作室。
           </p>
         </section>
 
-        <Showcase />
+        <section>
+          <p className="text-[11px] tracking-[0.22em] text-[#e85a12]">展示成果</p>
+          <h2 className="mt-2 text-2xl font-semibold text-white">聽眾放下的版本</h2>
+          <ul className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {(works ?? []).slice(0, 8).map((work) => (
+              <li key={work.id} className="overflow-hidden bg-[#161616]">
+                {work.coverUrl ? (
+                  <img src={work.coverUrl} alt="" className="aspect-square w-full object-cover" />
+                ) : (
+                  <div className="grid aspect-square place-items-center text-xs text-[#666]">無封面</div>
+                )}
+                <div className="p-3">
+                  <p className="truncate text-sm text-white">{work.title}</p>
+                  <p className="truncate text-xs text-[#888]">{work.nickname}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          {works && works.length === 0 && (
+            <p className="mt-6 text-sm text-[#888]">還沒有公開的成片。</p>
+          )}
+        </section>
 
         <section className="mt-16">
           <p className="text-[11px] tracking-[0.22em] text-[#e85a12]">參與方式</p>
           <h2 className="mt-2 text-2xl font-semibold text-white">三種支持</h2>
           <p className="mt-2 max-w-lg text-sm leading-7 text-[#999]">
-            付款後，Email 或官方 LINE@ 會拿到一組一次性密碼。
-            進站後從資料庫選歌，按住空白鍵對時。
+            NT$100／320／2,800。付款後用一次性密碼進站，從資料庫選歌，按住空白鍵對時。
           </p>
           <ul className="mt-8 grid gap-4 sm:grid-cols-3">
             {PLAN_COPY.map((plan) => (
