@@ -33,6 +33,9 @@ export function HoldCueHome() {
           <button type="button" className="text-[#e85a12]" onClick={() => setGate(true)}>
             我有密碼
           </button>
+          <Link to="/desk" className="hover:text-white">
+            管理員
+          </Link>
         </div>
       </header>
 
@@ -155,6 +158,11 @@ function ClassicGate({ onBack }: { onBack: () => void }) {
         <button type="button" className="mt-6 text-sm text-[#888]" onClick={onBack}>
           返回
         </button>
+        <p className="mt-10 text-xs text-[#bbb]">
+          <Link to="/desk" className="hover:text-[#e85a12]">
+            管理員入口
+          </Link>
+        </p>
       </div>
     </div>
   );
