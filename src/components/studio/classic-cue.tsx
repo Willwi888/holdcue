@@ -59,10 +59,7 @@ export function ClassicCue() {
       if (e.code === "Space") {
         e.preventDefault();
         if (e.repeat || holdingRef.current) return;
-        if (!playing) {
-          void play();
-          return;
-        }
+        if (!playing) return;
         const line = linesRef.current[cueRef.current];
         if (!line) return;
         holdingRef.current = true;
@@ -115,7 +112,7 @@ export function ClassicCue() {
   };
 
   const onHoldStart = () => {
-    if (!playing) void play();
+    if (!playing) return;
     const line = lines[cueIndex];
     if (!line || holdingRef.current) return;
     holdingRef.current = true;
@@ -138,19 +135,19 @@ export function ClassicCue() {
     <div className="classic-skin min-h-dvh bg-white text-[#4a4a4a]">
       <div className="mx-auto max-w-2xl px-5 pb-28 pt-10 sm:pt-16">
         <p className="text-center text-[15px] leading-8 text-[#444]">
-          <span className="font-bold tracking-wide text-[#e85a12]">按一下空白鍵</span>
+          <span className="font-bold tracking-wide text-[#e85a12]">先按播放鍵</span>
           <br />
-          開始播放
+          音樂開始之後，空白鍵才有用
         </p>
         <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
           <span className="font-bold tracking-wide text-[#e85a12]">按住空白鍵</span>
           <br />
-          聽到這一句開始的時候按住
+          這一句開始
         </p>
         <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
           <span className="font-bold tracking-wide text-[#e85a12]">放開</span>
           <br />
-          這一句唱完就放開，跳下一句
+          跳下一句
         </p>
         <p className="mt-5 text-center text-[15px] leading-8 text-[#444]">
           <span className="font-bold tracking-wide text-[#e85a12]">倒退鍵</span> 刪最後一句
@@ -167,7 +164,7 @@ export function ClassicCue() {
               onClick={() => void play()}
               className="absolute -top-7 left-0 rounded-t-[6px] bg-[#e85a12] px-3 py-1.5 text-[10px] font-bold tracking-[0.12em] text-white"
             >
-              CLICK PLAY TO BEGIN
+              先按播放鍵
             </button>
           )}
           <div className="flex overflow-hidden rounded-sm bg-[#efefef]">
