@@ -262,7 +262,7 @@ export function ClassicCue() {
               className="mt-6 bg-[#e85a12] px-5 py-2.5 text-sm font-semibold text-white"
               onClick={() => setStep("export")}
             >
-              輸出成片
+              匯出歌詞影片
             </button>
           </div>
         )}
@@ -279,6 +279,15 @@ export function ClassicCue() {
           <span className="ml-auto tabular-nums text-[#aaa]">
             {timed}/{lines.length}
           </span>
+          {allDone && (
+            <button
+              type="button"
+              className="bg-[#e85a12] px-3 py-1.5 text-white"
+              onClick={() => setStep("export")}
+            >
+              匯出歌詞影片
+            </button>
+          )}
         </div>
         <button
           type="button"

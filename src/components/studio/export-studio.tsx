@@ -206,7 +206,7 @@ export function ExportStudio() {
           STEP 04
         </p>
         <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
-          輸出歌詞影片
+          匯出歌詞影片
         </h1>
         <div className="mt-4 max-w-md space-y-2 text-sm leading-relaxed text-muted">
           {AFTERWORD.lines.map((line) => (
