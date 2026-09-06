@@ -115,10 +115,6 @@ function DeskPage() {
           >
             {busy ? "核對中…" : "進入"}
           </button>
-          <p className="mt-6 text-xs leading-6 text-[#888]">
-            口令是 Vercel 的 DESK_PASSPHRASE。
-            若還沒設定，先試 WILLWI。
-          </p>
         </form>
       </div>
     );
