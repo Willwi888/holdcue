@@ -11,7 +11,7 @@ import { SpaceField } from "@/components/space-field";
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "HoldCue";
+const APP_NAME = "手工歌詞 HoldCue";
 
 export const Route = createRootRoute({
   head: () => ({

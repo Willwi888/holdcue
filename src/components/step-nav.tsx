@@ -79,10 +79,10 @@ export function BrandMark({ paper = false }: { paper?: boolean }) {
       />
       <span className="flex flex-col items-start leading-none">
         <span className="font-display text-[11px] font-extrabold tracking-[0.12em] text-fg sm:text-sm sm:tracking-[0.16em]">
-          HoldCue
+          手工歌詞
         </span>
         <span className="mt-1 hidden text-[10px] tracking-[0.16em] text-muted sm:block">
-          歌詞對時
+          HoldCue
         </span>
       </span>
     </button>

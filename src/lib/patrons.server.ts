@@ -8,25 +8,25 @@ export const PLANS: Record<
   { label: string; amount: number; canLyrics: boolean; canTime: boolean; hint: string }
 > = {
   listen: {
-    label: "聽",
-    amount: 150,
+    label: "看",
+    amount: 100,
     canLyrics: true,
-    canTime: false,
-    hint: "動態歌詞頁。不參與對時，仍要留下基本資料。",
+    canTime: true,
+    hint: "進入手工對時，帶走你的成片。",
   },
   place: {
     label: "安放",
-    amount: 360,
+    amount: 320,
     canLyrics: true,
     canTime: true,
-    hint: "動態歌詞，以及親手對時。",
+    hint: "親手對時，名字會留在支持名單。",
   },
   stay: {
     label: "陪伴",
-    amount: 960,
+    amount: 2800,
     canLyrics: true,
     canTime: true,
-    hint: "兩者都開放，名字會記在支持名單。",
+    hint: "成片可放在展示區。這不是授權，是支持。",
   },
 };
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { AudioHost } from "@/components/audio-host";
-import { MetroGate } from "@/components/metro/gate";
+import { HoldCueHome } from "@/components/studio/holdcue-home";
 import { BrandMark, StepNav } from "@/components/step-nav";
 import { Prelude } from "@/components/prelude";
 import { ClassicCue } from "@/components/studio/classic-cue";
@@ -112,6 +112,6 @@ function MetroHome() {
     return () => window.removeEventListener("metro-pass", sync);
   }, []);
 
-  if (!pass && !import.meta.env.DEV) return <MetroGate />;
+  if (!pass) return <HoldCueHome />;
   return <ClassicPicker />;
 }

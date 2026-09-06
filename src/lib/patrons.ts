@@ -11,18 +11,18 @@ export const PLAN_COPY: {
 }[] = [
   {
     id: "listen",
-    label: "只坐著",
-    hint: "聽到終點就好。動態歌詞會在。",
+    label: "NT$100 看",
+    hint: "進入手工對時，帶走這次的成片。",
   },
   {
     id: "place",
-    label: "親手安放",
-    hint: "把每一句放到它該在的地方。",
+    label: "NT$320 安放",
+    hint: "每一句自己放下。名字留在支持名單。",
   },
   {
     id: "stay",
-    label: "陪伴",
-    hint: "坐到天亮。名字留在車上。",
+    label: "NT$2,800 陪伴",
+    hint: "成片可放上展示區。不是授權，是支持。",
   },
 ];
 
