@@ -10,7 +10,7 @@ import { toLrc } from "@/lib/lrc";
 import { blobToBase64, fileToJpegDataUrl } from "@/lib/media-file";
 import { timedCount, useProject } from "@/lib/store";
 import { RESOLUTIONS } from "@/lib/types";
-import { preloadFonts, loadImage, preloadIdentVideos, filmIdentPads } from "@/lib/video/assets";
+import { preloadFonts, loadImage } from "@/lib/video/assets";
 import { encodeLyricVideo } from "@/lib/video/encode";
 import { downloadBlob, formatClock } from "@/lib/utils";
 
@@ -88,13 +88,8 @@ export function ExportStudio() {
 
     try {
       await preloadFonts();
-      preloadIdentVideos();
-      if (s.coverUrl) await loadImage(s.coverUrl).catch(() => null);
-      if (s.portraitUrl) await loadImage(s.portraitUrl).catch(() => null);
-
-      const pads = filmIdentPads();
       const songDur = duration || 1;
-      const totalDur = songDur + pads.head + pads.tail;
+      const totalDur = songDur;
 
       const result = await encodeLyricVideo({
         canvas,
@@ -104,14 +99,14 @@ export function ExportStudio() {
         title: s.title,
         artist: s.artist,
         album: s.album,
-        audioPadHead: pads.head,
-        audioPadTail: pads.tail,
+        audioPadHead: 0,
+        audioPadTail: 0,
         signal: ac.signal,
         onFrame: (t) =>
           paint(canvas, t, totalDur, {
-            withIdents: true,
-            identHead: pads.head,
-            identTail: pads.tail,
+            withIdents: false,
+            identHead: 0,
+            identTail: 0,
           }),
         onProgress: (p) => {
           setProgress(p.ratio);

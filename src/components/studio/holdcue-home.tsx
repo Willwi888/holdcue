@@ -45,9 +45,9 @@ export function HoldCueHome() {
             手工歌詞
           </h1>
           <p className="mt-4 text-sm leading-7 text-[#b8b8b8]">
-            歌、封面、音源都來自 Willwi Archive。
-            對時寫進同一份資料的 lyric_sessions。
-            先看成片，再支持後進工作室。
+            這是手工對時工作室。
+            歌、封面、音源來自 Willwi Archive。
+            先看成片，支持後拿一次性密碼進工作室。
           </p>
         </section>
 
